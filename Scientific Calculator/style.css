@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Mea+Culpa&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+body {
+    text-align: center;
+    background-color: rgb(140, 184, 118);
+    font-family: Trebuchet MS;
+}
+
+h1 {
+    margin: 0;
+    font-size: 60px;
+    font-family: 'Mea Culpa', cursive;
+    color: rgb(0, 0, 0);
+}
+
+h2 {
+    font-size: 20px;
+    font-family: 'Mea Culpa', cursive;
+    color: rgb(0, 0, 0);
+}
+
+h2 a {
+    font-size: 20px;
+    font-family: 'Mea Culpa', cursive;
+    color: rgb(211, 61, 121);
+}
+
+#output {
+    background-color: #000;
+    color: #fff;
+    width: 600px;
+    height: 80px;
+    font-size: 48px;
+    border-radius: 5px;
+    text-align: left;
+    padding: 0px 10px 0px 10px;
+    box-shadow: 0px 0px 30px -5px #fff;
+}
+
+#buttons {
+    margin-top: 15px;
+}
+
+.button {
+    color: #fff;
+    text-align: center;
+    line-height: 70px;
+    display: inline-block;
+    background-color: #595959;
+    border: 1px solid #33ccff;
+    height: 70px;
+    width: 100px;
+    font-size: 36px;
+    margin-right: -4.6px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0066ff;
+    box-shadow: 0px 0px 30px 0px #fff;
+}
+
+.button:active {
+    background-color: #80b3ff;
+    box-shadow: 0px 0px 30px 0px #000;
+}
+
+.number {
+    background-color: #404040;
+}
+
+.number:active {
+    background-color: #80b3ff;
+    box-shadow: 0px 0px 30px 0px #000;
+}
+
+#zero {
+    width: 200px;
+}
+
+#decimal {
+    font-weight: bold;
+}
+
+#equals {
+    background-color: #0066ff;
+}
+
+#equals:hover {
+    background-color: #fff;
+    color: #000;
+    box-shadow: 0px 0px 30px -5px #fff;
+}
+
+#backspace {
+    background-color: #333333;
+}
+
+#backspace:hover {
+    background-color: #99003d;
+}
+
+#backspace:active {
+    background-color: #ff4d94;
+    box-shadow: 0px 0px 30px 0px #000;
+}
+
+#clear {
+    background-color: #262626;
+}
+
+#clear:hover {
+    background-color: #cc0000;
+}
+
+#clear:active {
+    background-color: #ff4d4d;
+    box-shadow: 0px 0px 30px 0px #000;
+}
+
+#radians,
+#degrees {
+    width: 200px;
+}
+
+#radians:hover {
+    background-color: #00b38f;
+}
+
+#degrees:hover {
+    background-color: #00b38f;
+}
+
+
+/* footer section */
+
+center {
+    margin-left: 13%;
+    align-items: center;
+    width: 73.3%;
+}
+
+.bottom center {
+    padding: 5px;
+    font-size: 0.9375rem;
+    background: #84db12;
+}
+
+.bottom center span {
+    color: #656565;
+    width: 50px;
+}
+
+.bottom center a {
+    color: #009675;
+    text-decoration: none;
+}
+
+.bottom center a:hover {
+    width: 50px;
+    text-decoration: underline;
+}
+
+.social {
+    text-align: end;
+    padding: 0 4px;
+    height: 40px;
+    width: 40px;
+    background: #1a1a1a;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: 0.3s;
+    color: aqua;
+}
+
+.social:hover {
+    background: #f12020;
+    padding: 0 25px;
+}

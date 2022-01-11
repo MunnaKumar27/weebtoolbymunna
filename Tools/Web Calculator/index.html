@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <title>Calculator</title>
+    <link rel="icon" href="logo.jpg">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <style>
+         :root {
+            --left-keypad-button-width: 60px;
+            --right-keypad-button-width: 60px;
+            --keypad-button-height: 32px;
+            --equal-key-button-width: 153px;
+            --button-padding: 6px 15px;
+            --main-calculator-padding: 15px 20px;
+            --calculator-screen-padding: 10px 15px;
+            --problem-screen-font-size: 30px;
+            --second-screen-font-size: 20px;
+            --button-font-size: 17px;
+            --calculator-screen-bottom-margin: 15px;
+        }
+        
+        html,
+        body {
+            font-family: system-ui;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: linear-gradient(45deg, #a38d8d, #4d4775, #74a37a, #926363);
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .CalculatorContainer {
+            margin: 10px;
+        }
+        
+        .MainCalculator {
+            display: flex;
+            flex-direction: column;
+            border-radius: 35px;
+            padding: var(--main-calculator-padding);
+            background: linear-gradient(135deg, #2C2D2B, #F2B7B0, #86EAE4, #A12958, #3FCE24);
+            box-shadow: 8px -8px 12px 0 rgba(0, 0, 0, 0.3), -12px 12px 16px rgba(255, 255, 255, 0.25);
+            /* background: white; */
+        }
+        
+        .CalculatorScreen2 {
+            border-radius: 15px;
+            background: #F3F7F2;
+            margin: 5px;
+            margin-bottom: var(--calculator-screen-bottom-margin);
+        }
+        
+        .CalculatorScreen {
+            padding: var(--calculator-screen-padding);
+            border-radius: 15px;
+            background: linear-gradient(-45deg, rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.25));
+            box-shadow: -8px -8px 12px 0 rgba(0, 0, 0, 0.3), 12px 12px 16px rgba(255, 255, 255, 0.25);
+            overflow-x: hidden;
+        }
+        
+        #SecondScreen {
+            text-align: right;
+            font-size: var(--second-screen-font-size);
+        }
+        
+        .Brand {
+            float: left;
+            font-style: italic;
+            color: #B7B2B3;
+            font-size: 18px;
+            user-select: none;
+        }
+        
+        #ProblemScreen {
+            text-align: right;
+            font-size: var(--problem-screen-font-size);
+        }
+        
+        .CalculatorKeypad {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .LeftSidePart,
+        .RightSidePart {
+            display: flex;
+            margin: 3px;
+            flex-direction: column;
+        }
+        
+        .LeftSidePart {
+            /* background: #afd275; */
+            background: linear-gradient(rgba(240, 243, 231, 0.6), rgba(231, 231, 231, 0.6), rgba(240, 243, 231, 0.6));
+            border-radius: 20px;
+            box-shadow: -8px 8px 12px 0 rgba(0, 0, 0, 0.3), 12px -12px 16px rgba(255, 255, 255, 0.25);
+        }
+        
+        .RightSidePart {
+            background: linear-gradient(rgba(240, 243, 231, 0.6), rgba(231, 231, 231, 0.6), rgba(240, 243, 231, 0.6));
+            border-radius: 20px;
+            box-shadow: -8px 8px 12px 0 rgba(0, 0, 0, 0.3), 12px -12px 16px rgba(255, 255, 255, 0.25);
+        }
+        
+        .LeftKeypadRow,
+        .RightKeypadRow {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .LeftKeypadRow div {
+            width: var(--left-keypad-button-width);
+            height: var(--keypad-button-height);
+            margin: 3px;
+            padding: var(--button-padding);
+            border: 0px solid black;
+            border-radius: 20px;
+            align-items: center;
+            text-align: center;
+            font-size: var(--button-font-size);
+            box-shadow: 0 3px 5px gray;
+            cursor: pointer;
+            background: linear-gradient(-45deg, rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.25));
+            box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+            outline: none;
+            transition: 0.2s;
+            user-select: none;
+        }
+        
+        .LeftKeypadRow div:hover {
+            background: linear-gradient(-45deg, rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.25));
+            transform: scale(1.1);
+        }
+        
+        .LeftKeypadRow div:active {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.22), rgba(255, 255, 255, 0.25));
+            box-shadow: inset 2px 0 5px gray;
+        }
+        
+        .LeftKeypadRow1 div,
+        .LeftKeypadRow .NormalSignBtn {
+            background: linear-gradient(90deg, #696968, #2F2F2E, #696968);
+            color: white;
+            box-shadow: 0 2px 5px gray;
+        }
+        
+        .LeftKeypadRow1 div:hover,
+        .LeftKeypadRow .NormalSignBtn:hover {
+            background: radial-gradient(#1F1F1f, #2F2F3E, #3F3F3E, #696968);
+            padding: 8px 17px;
+            margin: 1px;
+        }
+        
+        .LeftKeypadRow .EqualKey {
+            width: var(--equal-key-button-width);
+            background: linear-gradient(45deg, #EC4F3A, blue, #EC4F3A);
+            color: white;
+            font-size: 25px;
+        }
+        
+        .LeftKeypadRow .EqualKey:hover {
+            background: linear-gradient(135deg, #EC4F3A, blue, #EC4F3A);
+        }
+        
+        .RightKeypadRow div {
+            width: var(--right-keypad-button-width);
+            height: var(--keypad-button-height);
+            margin: 3px;
+            padding: var(--button-padding);
+            border: 0px solid black;
+            border-radius: 20px;
+            align-items: center;
+            text-align: center;
+            font-size: var(--button-font-size);
+            cursor: pointer;
+            box-shadow: 0 2px 5px gray;
+            background: linear-gradient(-45deg, rgba(255, 255, 255, 0.35), rgba(0, 0, 0, 0.4), rgba(255, 255, 255, 0.35));
+            box-shadow: 12px 12px 16px 0 rgba(0, 0, 0, 0.25), -8px -8px 12px 0 rgba(200, 255, 255, 0.3);
+            /* background: white; */
+            color: white;
+            transition: 0.2s;
+            user-select: none;
+        }
+        
+        .RightKeypadRow div:hover {
+            transform: scale(1.1);
+        }
+        
+        .RightKeypadRow div:active {
+            box-shadow: inset 2px 0 5px gray;
+        }
+        
+        #CeKey,
+        #CKey {
+            color: #C50315;
+            font-weight: 600;
+        }
+        
+        .social {
+            text-align: end;
+            padding: 0 4px;
+            height: 40px;
+            width: 40px;
+            background: #1a1a1a;
+            line-height: 40px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+            color: aqua;
+        }
+        
+        .social:hover {
+            background: #f12020;
+            padding: 0 25px;
+        }
+        
+        @media only screen and (max-width: 900px) {
+             :root {
+                --calculator-screen-bottom-margin: 20px;
+            }
+            .CalculatorKeypad {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        
+        @media only screen and (max-width: 550px) {
+             :root {
+                --main-calculator-padding: 22px 25px;
+                --left-keypad-button-width: 50px;
+                --right-keypad-button-width: 50px;
+                --keypad-button-height: 29px;
+                --equal-key-button-width: 127px;
+                --button-padding: 7px 12px;
+                --problem-screen-font-size: 27px;
+                --second-screen-font-size: 18px;
+                --button-font-size: 15px;
+            }
+        }
+        
+        @media only screen and (max-width: 400px) {
+             :root {
+                --main-calculator-padding: 20px 22px;
+                --left-keypad-button-width: 40px;
+                --right-keypad-button-width: 40px;
+                --keypad-button-height: 24px;
+                --equal-key-button-width: 103px;
+                --button-padding: 4px 10px;
+                --problem-screen-font-size: 25px;
+                --second-screen-font-size: 18px;
+                --button-font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="CalculatorContainer">
+
+        <div class="MainCalculator">
+            <center>
+                <h2>Calculator
+                    <br> by <a class="social" href="https://munnaportfolio.ml/">Munna Kumar</a>
+                    <a class="social" href="https://www.facebook.com/Munnakumar27" target="_blank"><span class="fab fa-facebook-f"></span></a>
+                    <a class="social" href="https://www.linkedin.com/in/munnakumar27/" target="_blank"><span class="fab fa-linkedin"></span></a>
+                    <a class="social" href="https://www.instagram.com/munnakumar_27/" target="_blank"><span class="fab fa-instagram"></span></a>
+                    <a class="social" href="https://github.com/MunnaKumar27"><span class="fab fa-github" target="_blank"></span></a>
+                </h2>
+            </center>
+            <div class="CalculatorScreen2">
+                <div class="CalculatorScreen">
+                    <div class="ProblemExpression" id="SecondScreen">
+                        0
+                    </div>
+                    <div class="Brand"></div>
+                    <div class="ProblemStatement Result" id="ProblemScreen">
+                        0
+                    </div>
+                </div>
+            </div>
+            <div class="CalculatorKeypad">
+                <div class="LeftSidePart">
+                    <div class="LeftKeypadRow1 LeftKeypadRow">
+                        <div class="CeKey" id="CeKey">CE</div>
+                        <div class="CKey" id="CKey">C</div>
+                        <div class="BackSpaceKey" id="BackSpaceKey"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></div>
+                        <div class="DevideKey" id="DevideKey">÷</div>
+                    </div>
+                    <div class="LeftKeypadRow2 LeftKeypadRow">
+                        <div class="7Key" id="7Key">7</div>
+                        <div class="8Key" id="8Key">8</div>
+                        <div class="9Key" id="9Key">9</div>
+                        <div class="MultipicationKey NormalSignBtn" id="MultipicationKey">X</div>
+                    </div>
+                    <div class="LeftKeypadRow3 LeftKeypadRow">
+                        <div class="4Key" id="4Key">4</div>
+                        <div class="5Key" id="5Key">5</div>
+                        <div class="6Key" id="6Key">6</div>
+                        <div class="MinusKey NormalSignBtn" id="MinusKey">-</div>
+                    </div>
+                    <div class="LeftKeypadRow4 LeftKeypadRow">
+                        <div class="1Key" id="1Key">1</div>
+                        <div class="2Key" id="2Key">2</div>
+                        <div class="3Key" id="3Key">3</div>
+                        <div class="SummessionKey NormalSignBtn" id="SummessionKey">+</div>
+                    </div>
+                    <div class="LeftKeypadRow5 LeftKeypadRow">
+                        <div class="PointKey NormalSignBtn" id="PointKey">.</div>
+                        <div class="0Key" id="0Key">0</div>
+                        <div class="EqualKey" id="EqualKey">=</div>
+                    </div>
+                </div>
+                <div class="RightSidePart">
+                    <div class="RightKeypadRow1 RightKeypadRow">
+                        <div class="SinKey" id="SinKey">Sin</div>
+                        <div class="SinInvKey" id="SinInvKey">Sin<sup>-1</sup> </div>
+                        <div class="FactorialKey" id="FactorialKey">!</div>
+                        <div class="LnKey" id="LnKey">ln</div>
+                    </div>
+                    <div class="RightKeypadRow2 RightKeypadRow">
+                        <div class="CosKey" id="CosKey">Cos</div>
+                        <div class="CosInvKey" id="CosInvKey">Cos<sup>-1</sup> </div>
+                        <div class="nPrKey" id="nPrKey">nPr</div>
+                        <div class="Log10Key" id="Log10Key">log<sub>10</sub></div>
+                    </div>
+                    <div class="RightKeypadRow3 RightKeypadRow">
+                        <div class="TanKey" id="TanKey">tan</div>
+                        <div class="TanInvKey" id="TanInvKey">tan<sup>-1</sup> </div>
+                        <div class="nCrKey" id="nCrKey">nCr</div>
+                        <div class="EPowerXKey" id="EPowerXKey">e<sup>x</sup></div>
+                    </div>
+                    <div class="RightKeypadRow4 RightKeypadRow">
+                        <div class="PowerKey" id="PowerKey">^</div>
+                        <div class="RootKey" id="RootKey">√</div>
+                        <div class="PiKey" id="PiKey">𝝅</div>
+                        <div class="eKey" id="eKey">e</div>
+                    </div>
+                    <div class="RightKeypadRow5 RightKeypadRow">
+                        <div class="OpenBracketKey" id="OpenBracketKey">(</div>
+                        <div class="CloseBracketKey" id="CloseBracketKey">)</div>
+                        <div class="PercentKey" id="PercentKey">%</div>
+                        <div class="SquereKey" id="SquereKey">x<sup>2</sup></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <center>
+            <span class="credit">Created By <a href="https://munnaportfolio.ml/" target="_blank" >Munna Kumar</a> | </span>
+            <span class="far fa-copyright"></span><span> 2022 All rights reserved.</span>
+        </center>
+    </div>
+    <script>
+        const Screen1 = document.getElementById("ProblemScreen");
+        const Screen2 = document.getElementById("SecondScreen");
+        const Brand = document.getElementsByClassName("Brand")[0];
+        Brand.innerHTML = "";
+
+        const CEButton = document.getElementById("CeKey");
+        const CButton = document.getElementById("CKey");
+        const BackSpaceButton = document.getElementById("BackSpaceKey");
+        const DevideButton = document.getElementById("DevideKey");
+        const MultipicationButton = document.getElementById("MultipicationKey");
+        const MinusButton = document.getElementById("MinusKey");
+        const SummessionButton = document.getElementById("SummessionKey");
+
+        const ZeroButton = document.getElementById("0Key");
+        const OneButton = document.getElementById("1Key");
+        const TwoButton = document.getElementById("2Key");
+        const ThreeButton = document.getElementById("3Key");
+        const FourButton = document.getElementById("4Key");
+        const FiveButton = document.getElementById("5Key");
+        const SixButton = document.getElementById("6Key");
+        const SevenButton = document.getElementById("7Key");
+        const EightButton = document.getElementById("8Key");
+        const NineButton = document.getElementById("9Key");
+        const PointButton = document.getElementById("PointKey");
+
+        const EqualButton = document.getElementById("EqualKey");
+
+        const SinButton = document.getElementById("SinKey");
+        const CosButton = document.getElementById("CosKey");
+        const TanButton = document.getElementById("TanKey");
+        const SinInvButton = document.getElementById("SinInvKey");
+        const CosInvButton = document.getElementById("CosInvKey");
+        const TanInvButton = document.getElementById("TanInvKey");
+
+        const FactorialButton = document.getElementById("FactorialKey");
+        const nPrButton = document.getElementById("nPrKey");
+        const nCrButton = document.getElementById("nCrKey");
+
+        const LnButton = document.getElementById("LnKey");
+        const Log10Button = document.getElementById("Log10Key");
+        const EPowerXButton = document.getElementById("EPowerXKey");
+
+        const PowerButton = document.getElementById("PowerKey");
+        const RootButton = document.getElementById("RootKey");
+        const PiButton = document.getElementById("PiKey");
+        const EButton = document.getElementById("eKey");
+        const OpenBracketButton = document.getElementById("OpenBracketKey");
+        const CloseBracketButton = document.getElementById("CloseBracketKey");
+        const PercentButton = document.getElementById("PercentKey");
+        const SquereButton = document.getElementById("SquereKey");
+
+        var Screen1Value = "";
+        var Expression = "";
+        var SpecialOperation = ""
+
+        function factorial(a) {
+            if (a === 0) {
+                return 1;
+            }
+            return (a * factorial(a - 1))
+        }
+
+        function nPr(n, r) {
+            return factorial(n) / factorial(n - r);
+        }
+
+        function nCr(n, r) {
+            return factorial(n) / (factorial(r) * factorial(n - r));
+        }
+
+        OneButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "1";
+            Expression = Expression + "1";
+            Screen1.innerHTML = Screen1Value;
+        })
+        TwoButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "2";
+            Expression = Expression + "2";
+            Screen1.innerHTML = Screen1Value;
+        })
+        ThreeButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "3";
+            Expression = Expression + "3";
+            Screen1.innerHTML = Screen1Value;
+        })
+        FourButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "4";
+            Expression = Expression + "4";
+            Screen1.innerHTML = Screen1Value;
+        })
+        FiveButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "5";
+            Expression = Expression + "5";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SixButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "6";
+            Expression = Expression + "6";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SevenButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "7";
+            Expression = Expression + "7";
+            Screen1.innerHTML = Screen1Value;
+        })
+        EightButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "8";
+            Expression = Expression + "8";
+            Screen1.innerHTML = Screen1Value;
+        })
+        NineButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "9";
+            Expression = Expression + "9";
+            Screen1.innerHTML = Screen1Value;
+        })
+        ZeroButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "0";
+            Expression = Expression + "0";
+            Screen1.innerHTML = Screen1Value;
+        })
+        PointButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + ".";
+            Expression = Expression + ".";
+            Screen1.innerHTML = Screen1Value;
+        })
+
+        CEButton.addEventListener("click", () => {
+            location.reload();
+        })
+        CButton.addEventListener("click", () => {
+            Expression = "";
+            Screen1Value = "";
+            Screen1.innerHTML = "0";
+        })
+        BackSpaceButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value.slice(0, Screen1Value.length - 1);
+            Screen1.innerHTML = Screen1Value;
+        })
+
+        DevideButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "÷";
+            Expression = Expression + "/";
+            Screen1.innerHTML = Screen1Value;
+        })
+        MultipicationButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "X";
+            Expression = Expression + "*";
+            Screen1.innerHTML = Screen1Value;
+        })
+        MinusButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "-";
+            Expression = Expression + "-";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SummessionButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "+";
+            Expression = Expression + "+";
+            Screen1.innerHTML = Screen1Value;
+        })
+        OpenBracketButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "(";
+            Expression = Expression + "(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        CloseBracketButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + ")";
+            Expression = Expression + ")";
+            Screen1.innerHTML = Screen1Value;
+        })
+        PowerButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "^";
+            Expression = Expression + "**";
+            Screen1.innerHTML = Screen1Value;
+        })
+        RootButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "√(";
+            Expression = Expression + "Math.sqrt(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SquereButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "^2";
+            Expression = Expression + "**2";
+            Screen1.innerHTML = Screen1Value;
+        })
+        PiButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "𝝅";
+            Expression = Expression + "Math.PI";
+            Screen1.innerHTML = Screen1Value;
+        })
+        EButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "e";
+            Expression = Expression + "Math.E";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SinButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "sin(";
+            Expression = Expression + "Math.sin((Math.PI/(180))*";
+            Screen1.innerHTML = Screen1Value;
+        })
+        CosButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "cos(";
+            Expression = Expression + "Math.cos((Math.PI/(180))*";
+            Screen1.innerHTML = Screen1Value;
+        })
+        TanButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "tan(";
+            Expression = Expression + "Math.tan((Math.PI/(180))*";
+            Screen1.innerHTML = Screen1Value;
+        })
+        SinInvButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "sin⁻¹(";
+            Expression = Expression + "(180/Math.PI)*Math.asin(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        CosInvButton
+        CosInvButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "cos⁻¹(";
+            Expression = Expression + "(180/Math.PI)*Math.acos(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        TanInvButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "tan⁻¹(";
+            Expression = Expression + "(180/Math.PI)*Math.atan(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        PercentButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "%";
+            Expression = Expression + "/100";
+            Screen1.innerHTML = Screen1Value;
+        })
+        FactorialButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "!";
+            Expression = factorial(eval(Expression));
+            Screen1.innerHTML = Screen1Value;
+        })
+        var n = 0;
+        nPrButton.addEventListener("click", () => {
+            n = Number(Expression);
+            Screen1Value = Screen1Value + "P";
+            Screen1.innerHTML = Screen1Value;
+            Expression = "P";
+        })
+        nCrButton.addEventListener("click", () => {
+            n = Number(Expression);
+            Screen1Value = Screen1Value + "C";
+            Screen1.innerHTML = Screen1Value;
+            Expression = "C";
+        })
+        LnButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "ln(";
+            Expression = Expression + "Math.log(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        Log10Button.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "log<sub>10</sub>(";
+            Expression = Expression + "Math.log10(";
+            Screen1.innerHTML = Screen1Value;
+        })
+        EPowerXButton.addEventListener("click", () => {
+            Screen1Value = Screen1Value + "e^";
+            Expression = Expression + "Math.E**";
+            Screen1.innerHTML = Screen1Value;
+        })
+        EqualButton.addEventListener("click", () => {
+            if (Expression[0] === "P") {
+                r = Number(Expression.slice(1, Expression.length))
+                Expression = nPr(n, r)
+            }
+            if (Expression[0] === "C") {
+                r = Number(Expression.slice(1, Expression.length))
+                Expression = nCr(n, r)
+            }
+            Screen2.innerHTML = Screen1Value;
+            ans = eval(Expression);
+            Screen1Value = String(ans);
+            Screen1.innerHTML = ans;
+        })
+    </script>
+</body>
+
+</html>

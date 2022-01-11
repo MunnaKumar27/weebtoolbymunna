@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mea+Culpa&family=The+Nautigal:wght@700&display=swap');
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.pexels.com/photos/1028725/pexels-photo-1028725.jpeg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        header {
+            width: 100%;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .card-header .a span {
+            padding: 0 20px;
+        }
+        
+        .social {
+            text-align: end;
+            padding: 0 4px;
+            height: 40px;
+            width: 40px;
+            background: #1a1a1a;
+            line-height: 40px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 5px;
+            transition: 0.3s;
+            color: aqua;
+        }
+        
+        .social:hover {
+            background: #f12020;
+            padding: 0 25px;
+        }
+        
+        .card-header {
+            font-family: 'Mea Culpa', cursive;
+            font-family: 'The Nautigal', cursive;
+            font-size: 50px;
+            color: aqua;
+        }
+    </style>
+    <title>Love cal by munna</title>
+    <link rel="icon" href="logo.jpg">
+</head>
+
+<body>
+    <header>
+        <div class="card w-50 m-auto text-center ">
+            <div class="card-header bg-danger text-white">LOVE CALCULATOR <br> by <a class="social" href="https://munnaportfolio.ml/">Munna Kumar</a>
+                <a class="social" href="https://www.facebook.com/Munnakumar27" target="_blank"><span class="fab fa-facebook-f"></span></a>
+                <a class="social" href="https://www.linkedin.com/in/munnakumar27/" target="_blank"><span class="fab fa-linkedin"></span></a>
+                <a class="social" href="https://www.instagram.com/munnakumar_27/" target="_blank"><span class="fab fa-instagram"></span></a>
+                <a class="social" href="https://github.com/MunnaKumar27"><span class="fab fa-github" target="_blank"></span></a>
+            </div>
+
+            <div class="card-body">
+                <form class="form-inline w-75 m-auto">
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control text-center" placeholder="Your Name" id="name">
+                    </div>
+                    <div class="pl-4 pr-4">
+                        <span> + </span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="" class="form-control text-center" placeholder=" Love Name" id="lname">
+                    </div>
+                </form> <br>
+                <div class="w-70 m-auto">
+                    <button class="btn btn-success w-50" onclick="checkloveper()"> click </button>
+                </div>
+                <br>
+                <div>
+                    <input type="text" name="" placeholder="LOVE PERCENTAGE" class="form-control text-center w-25 m-auto" id="lovevalue">
+                </div>
+            </div>
+            <div class="card-footer ">God Bless Your RelationShip</div>
+        </div>
+
+        </div>
+
+
+    </header>
+
+    <script>
+        function checkloveper() {
+
+            var name = document.getElementById('name').value;
+            var lname = document.getElementById('lname').value;
+
+            if (name == "") {
+                alert('Please enter your name');
+            } else if (name.length <= 2) {
+                alert('Min lenght is 3')
+            } else if (!isNaN(name)) {
+                alert('Numbers are not allowed');
+            } else if (lname == "") {
+                alert('Please enter your love name');
+            } else if (lname.length <= 2) {
+                alert('Min lenght is 3')
+            } else if (!isNaN(lname)) {
+                alert('Numbers are not allowed');
+            } else {
+                var lovdata = Math.random() * 100;
+                lovdata = Math.floor(lovdata);
+                document.getElementById('lovevalue').value = lovdata + "%";
+            }
+
+        }
+    </script>
+</body>
+
+</html>
